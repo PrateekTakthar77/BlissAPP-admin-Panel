@@ -22,14 +22,14 @@ const HomeDashboard = () => {
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalRevenue, setTotalRevenue] = useState(0);
   const [error, setError] = useState(null);
-  const { user, token, API_BASE_URL, loadingState, setLoadingState } =
+  const { user, token, API_BASE_URL, loadingState, setLoadingState,API_LOCAL_URL } =
     AdminState();
   console.log("API_BASE_URLHome:", API_BASE_URL);
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/api/admin/orders`, {
+        const response = await axios.get(`${API_LOCAL_URL}/api/admin/orders`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
