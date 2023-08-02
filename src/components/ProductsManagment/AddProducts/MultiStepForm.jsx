@@ -125,7 +125,7 @@ const Form2 = ({ productState, setProductState }) => {
         const response = await axios.get(
           `${API_BASE_URL}/api/products/categories`
         );
-        console.log("response.data", response.data);
+        console.log("response.data category*******", response.data);
         setCategories(response.data);
       } catch (error) {
         console.error("error-> ", error);
@@ -137,6 +137,7 @@ const Form2 = ({ productState, setProductState }) => {
 
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
+    console.log(`$$$$$$$$$$$$$$$$$$$$`,event.target.value);
     setProductState((prevState) => {
       return {
         ...prevState,
@@ -471,6 +472,7 @@ export default function MultiStepForm() {
   });
 
   const postProduct = async (productData, token, API_BASE_URL) => {
+    console.log(`tttttttttoooooken`,token);
     try {
       const response = await axios.post(
         `${API_BASE_URL}/api/products`,
