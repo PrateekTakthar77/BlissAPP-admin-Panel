@@ -98,11 +98,15 @@ const Form1 = ({ productState, setProductState }) => {
 
 const Form2 = ({ productState, setProductState }) => {
   const [categories, setCategories] = useState([]);
+  
+  const [subCategories,setSubCategories] = useState([]);
+  
   const [selectedCategory, setSelectedCategory] = useState(""); // Initialize with default selected category if needed
+  const [selectedSubCategory, setSelectedSubCategory] = useState("");
   const weightOptions = ["18", "20", "22", "24"];
   const { API_BASE_URL } = AdminState();
   const handleChange = (event, property) => {
-    console.log(productState);
+    console.log(`state`,productState);
     const { value } = event.target;
     setProductState((prevState) => ({
       ...prevState,
@@ -126,7 +130,7 @@ const Form2 = ({ productState, setProductState }) => {
           `${API_BASE_URL}/api/products/categories`
         );
         console.log("response.data category*******", response.data);
-        setCategories(response.data);
+        setCategories(response.data)
       } catch (error) {
         console.error("error-> ", error);
       }
@@ -137,11 +141,21 @@ const Form2 = ({ productState, setProductState }) => {
 
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
-    console.log(`$$$$$$$$$$$$$$$$$$$$`,event.target.value);
+    setSubCategories(categories.filter(ele=>{ return ele.category==event.target.value})[0].subcategory)
     setProductState((prevState) => {
       return {
         ...prevState,
         category: event.target.value,
+      };
+    });
+  };
+  const handleSubCategoryChange = (event) => {
+  
+    setSelectedSubCategory(event.target.value)
+    setProductState((prevState) => {
+      return {
+        ...prevState,
+        subcategory: event.target.value,
       };
     });
   };
@@ -165,22 +179,37 @@ const Form2 = ({ productState, setProductState }) => {
             onChange={handleCategoryChange}
           >
             <option value="">Select a category</option>
-            {categories.map((category, index) => (
-              <option key={index} value={category.name}>
-                {category.name}
+            {categories.map((ele, index) => (
+              <option key={index} value={ele.category}>
+                {ele.category}
               </option>
             ))}
           </Select>
           <Text fontSize={"x-small"}>or</Text>
           <Box flex={4}>
-            <Input
+          <Select
+            flex={4}
+            mb={4}
+            fontSize={"x-small"}
+            value={selectedSubCategory}
+            onChange={handleSubCategoryChange}
+          >
+            <option value="">Select a subcategory</option>
+            {subCategories.map((subcategory, index) => (
+              <option key={index} value={subcategory}>
+                {subcategory}
+              </option>
+            ))}
+          </Select>
+            {/* //update 2-8-23 */}
+            {/* <Input
               mt={4}
               isDisabled={selectedCategory !== ""}
               fontSize={"x-small"}
               value={productState.category}
               onChange={(e) => handleChange(e, "category")}
               placeholder="Enter product category"
-            />
+            /> */}
           </Box>
         </HStack>
         <Flex
