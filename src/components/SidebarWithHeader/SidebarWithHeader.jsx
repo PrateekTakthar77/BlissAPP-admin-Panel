@@ -183,7 +183,7 @@ const MobileNav = ({ onOpen, setLoggedIn, ...rest }) => {
         fontFamily="monospace"
         fontWeight="bold"
       >
-        LogoS
+        JewellBliss
       </Text>
 
       <HStack spacing={{ base: "0", md: "6" }}>
