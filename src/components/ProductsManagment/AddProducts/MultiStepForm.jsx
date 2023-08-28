@@ -57,7 +57,7 @@ const Form1 = ({ productState, setProductState }) => {
             placeholder="Enter product name"
           />
           {/* Description commented here this time it not neeeded might be needed later on */}
-          {/* <FormLabel fontSize={"x-small"} mt={4}>
+          <FormLabel fontSize={"x-small"} mt={4}>
             Description
           </FormLabel>
           <Textarea
@@ -65,7 +65,7 @@ const Form1 = ({ productState, setProductState }) => {
             value={productState.description}
             onChange={handleChange}
             placeholder="Enter product description"
-          /> */}
+          />
         </FormControl>
 
         {/* <FormControl>
@@ -98,15 +98,17 @@ const Form1 = ({ productState, setProductState }) => {
 
 const Form2 = ({ productState, setProductState }) => {
   const [categories, setCategories] = useState([]);
-  
-  const [subCategories,setSubCategories] = useState([]);
-  
+
+  const [subCategories, setSubCategories] = useState([]);
+
   const [selectedCategory, setSelectedCategory] = useState(""); // Initialize with default selected category if needed
   const [selectedSubCategory, setSelectedSubCategory] = useState("");
-  const weightOptions = ["18", "20", "22", "24"];
+  const PurityOptions = ["18", "20", "22", "24"];
+  // Weight later added
+  const weightOptions = ["10", "20", "30", "40"];
   const { API_BASE_URL } = AdminState();
   const handleChange = (event, property) => {
-    console.log(`state`,productState);
+    console.log(`state`, productState);
     const { value } = event.target;
     setProductState((prevState) => ({
       ...prevState,
@@ -130,7 +132,7 @@ const Form2 = ({ productState, setProductState }) => {
           `${API_BASE_URL}/api/products/categories`
         );
         console.log("response.data category*******", response.data);
-        setCategories(response.data)
+        setCategories(response.data);
       } catch (error) {
         console.error("error-> ", error);
       }
@@ -141,7 +143,11 @@ const Form2 = ({ productState, setProductState }) => {
 
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
-    setSubCategories(categories.filter(ele=>{ return ele.category==event.target.value})[0].subcategory)
+    setSubCategories(
+      categories.filter((ele) => {
+        return ele.category == event.target.value;
+      })[0].subcategory
+    );
     setProductState((prevState) => {
       return {
         ...prevState,
@@ -150,8 +156,7 @@ const Form2 = ({ productState, setProductState }) => {
     });
   };
   const handleSubCategoryChange = (event) => {
-  
-    setSelectedSubCategory(event.target.value)
+    setSelectedSubCategory(event.target.value);
     setProductState((prevState) => {
       return {
         ...prevState,
@@ -187,20 +192,20 @@ const Form2 = ({ productState, setProductState }) => {
           </Select>
           <Text fontSize={"x-small"}>or</Text>
           <Box flex={4}>
-          <Select
-            flex={4}
-            mb={4}
-            fontSize={"x-small"}
-            value={selectedSubCategory}
-            onChange={handleSubCategoryChange}
-          >
-            <option value="">Select a subcategory</option>
-            {subCategories.map((subcategory, index) => (
-              <option key={index} value={subcategory}>
-                {subcategory}
-              </option>
-            ))}
-          </Select>
+            <Select
+              flex={4}
+              mb={4}
+              fontSize={"x-small"}
+              value={selectedSubCategory}
+              onChange={handleSubCategoryChange}
+            >
+              <option value="">Select a subcategory</option>
+              {subCategories.map((subcategory, index) => (
+                <option key={index} value={subcategory}>
+                  {subcategory}
+                </option>
+              ))}
+            </Select>
             {/* //update 2-8-23 */}
             {/* <Input
               mt={4}
@@ -253,6 +258,23 @@ const Form2 = ({ productState, setProductState }) => {
               placeholder="Select product weight"
             >
               {weightOptions.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl width={"100%"} p={2}>
+            <FormLabel fontSize={"x-small"} mt={4}>
+              Purity
+            </FormLabel>
+            <Select
+              fontSize={"x-small"}
+              value={productState.purity}
+              onChange={(e) => handleChange(e, "purity")}
+              placeholder="Select product Purity"
+            >
+              {PurityOptions.map((option) => (
                 <option key={option} value={option}>
                   {option}
                 </option>
@@ -501,7 +523,7 @@ export default function MultiStepForm() {
   });
 
   const postProduct = async (productData, token, API_BASE_URL) => {
-    console.log(`tttttttttoooooken`,token);
+    console.log(`tttttttttoooooken`, token);
     try {
       const response = await axios.post(
         `${API_BASE_URL}/api/products`,
