@@ -247,22 +247,17 @@ const Form2 = ({ productState, setProductState }) => {
               placeholder="Enter product material"
             />
           </FormControl>
+          {/* weight */}
           <FormControl width={"50%"} p={2}>
             <FormLabel fontSize={"x-small"} mt={4}>
               Weight
             </FormLabel>
-            <Select
+            <Input
               fontSize={"x-small"}
               value={productState.weight}
               onChange={(e) => handleChange(e, "weight")}
-              placeholder="Select product weight"
-            >
-              {weightOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </Select>
+              placeholder="Enter product Weight"
+            />
           </FormControl>
           <FormControl width={"100%"} p={2}>
             <FormLabel fontSize={"x-small"} mt={4}>
