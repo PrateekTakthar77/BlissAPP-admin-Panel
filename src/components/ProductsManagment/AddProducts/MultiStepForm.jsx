@@ -259,7 +259,7 @@ const Form2 = ({ productState, setProductState }) => {
               placeholder="Enter product Weight"
             />
           </FormControl>
-          <FormControl width={"100%"} p={2}>
+          <FormControl width={"50%"} p={2}>
             <FormLabel fontSize={"x-small"} mt={4}>
               Purity
             </FormLabel>
@@ -275,6 +275,18 @@ const Form2 = ({ productState, setProductState }) => {
                 </option>
               ))}
             </Select>
+          </FormControl>
+          {/* making charges */}
+          <FormControl width={"50%"} p={2}>
+            <FormLabel fontSize={"x-small"} mt={4}>
+              Making Charges
+            </FormLabel>
+            <Input
+              fontSize={"x-small"}
+              value={productState.mcharges}
+              onChange={(e) => handleChange(e, "mcharges")}
+              placeholder="Enter product makingcharges"
+            />
           </FormControl>
           {/* Color is commented because this time not needed might be needed later on */}
           {/* <FormControl width={"50%"} p={2}>
