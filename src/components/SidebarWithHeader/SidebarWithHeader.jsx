@@ -35,7 +35,12 @@ import {
   FiList,
 } from "react-icons/fi";
 import { Link as RouteLink, useNavigate } from "react-router-dom";
-import { MdShoppingCartCheckout, MdPriceChange } from "react-icons/md";
+import {
+  MdShoppingCartCheckout,
+  MdPriceChange,
+  MdMonitorWeight,
+} from "react-icons/md";
+import { FaWeightHanging } from "react-icons/fa";
 import { AdminState } from "../context/context";
 
 const LinkItems = [
@@ -45,6 +50,11 @@ const LinkItems = [
   { name: "Manage Orders", icon: FiTrendingUp, link: "/orders" },
   { name: "Manage Sales Person", icon: FiUserPlus, link: "/salesperson" },
   { name: "Manage Coins", icon: MdPriceChange, link: "/pricetable" },
+  {
+    name: "Manage Making Charges",
+    icon: FaWeightHanging,
+    link: "/makingcharges",
+  },
 ];
 
 export default function SidebarWithHeader({ children, setLoggedIn }) {

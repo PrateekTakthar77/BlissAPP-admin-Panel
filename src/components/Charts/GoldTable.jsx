@@ -47,12 +47,12 @@ const CreateTableTab = ({ onSubmit }) => {
     setGstPercentage(event.target.value);
   };
   const handleStatusRadioChang = (event) => {
-    console.log("event.target.value: ", event.target.value);
+    // console.log("event.target.value: ", event.target.value);
     setStatus(event.target.value);
   };
   const handleSubmit = (event) => {
     {
-      console.log("status: ", status);
+      // console.log("status: ", status);
     }
     event.preventDefault();
     onSubmit({
@@ -123,6 +123,7 @@ const CreateTableTab = ({ onSubmit }) => {
           placeholder="Enter GST (%)"
         />
       </FormControl> */}
+      {/* second Form */}
       <Button
         m={4}
         colorScheme="blue"
@@ -156,12 +157,12 @@ const CreateTableTab2 = ({ onSubmit }) => {
     setGstPercentage(event.target.value);
   };
   const handleStatusRadioChang = (event) => {
-    console.log("event.target.value: ", event.target.value);
+    // console.log("event.target.value: ", event.target.value);
     setStatus(event.target.value);
   };
   const handleSubmit = (event) => {
     {
-      console.log("status: ", status);
+      // console.log("status: ", status);
     }
     event.preventDefault();
     onSubmit({
@@ -192,11 +193,12 @@ const CreateTableTab2 = ({ onSubmit }) => {
           placeholder="Enter 1 Gram Price"
         />
       </FormControl>
+      {/* First form */}
       <Button
         m={4}
         colorScheme="blue"
         type="submit"
-        isDisabled={!coinType || !gramPrice || !makingCharges || !gstPercentage}
+        isDisabled={!coinType || !gramPrice}
       >
         Submit
       </Button>
@@ -204,8 +206,9 @@ const CreateTableTab2 = ({ onSubmit }) => {
   );
 };
 
+// table displaying Gold data
 const GoldTableTab = ({ data, gstPercentage, makingCharges, status }) => {
-  console.log(data);
+  // console.log(data);
   return (
     <>
       {data.length > 0 ? (
@@ -225,20 +228,20 @@ const GoldTableTab = ({ data, gstPercentage, makingCharges, status }) => {
             {data.length > 0 &&
               data.map((item) => (
                 <Tr key={item.id}>
-                  {console.log("item: ", item)}
+                  {/* {console.log("item: ", item)} */}
                   <Td>{item.weight + "g"}</Td>
                   <Td>{"₹" + item.goldPrice.goldPrice}</Td>
                   <Td>{makingCharges + "%"}</Td>
 
                   <Td>{gstPercentage + "%"}</Td>
                   <Td>{"₹" + item.goldPrice.netAmount}</Td>
-                  <Td>{status === "true" ? "Active 🟢" : "Inactive ❌"}</Td>
+                  <Td>{status === "true" ? "Inactive ❌" : "Active 🟢"}</Td>
                 </Tr>
               ))}
           </Tbody>
         </Table>
       ) : (
-        <>No Data</>
+        <H1>Hello</H1>
       )}
     </>
   );
@@ -262,14 +265,14 @@ const SilverTableTab = ({ data, gstPercentage, makingCharges, status }) => {
         {data.length > 0 &&
           data.map((item) => (
             <Tr key={item.id}>
-              {console.log("item: ", item)}
+              {/* {console.log("item: ", item)} */}
               <Td>{item.weight + "g"}</Td>
               <Td>{"₹" + item.silverPrice.goldPrice}</Td>
               <Td>{makingCharges + "%"}</Td>
               {/* <Td>Active 🟢</Td> */}
               <Td>{gstPercentage + "%"}</Td>
               <Td>{"₹" + item.silverPrice.netAmount}</Td>
-              {console.log("status: ", status)}
+              {/* {console.log("status: ", status)} */}
               <Td>{status === "true" ? "Active 🟢" : "Inactive ❌"}</Td>
             </Tr>
           ))}
@@ -285,6 +288,8 @@ const GoldPriceCalculator = () => {
   const [coinPrice, setCoinPrice] = useState({});
   const [gramPrice, setGramPrice] = useState({});
   const { API_LOCAL_URL } = AdminState();
+  // console.log(`coinPrice-------------------------------`, coinPrice);
+  // console.log(`gramPrice+++++++++++++++++++++++++++++`, gramPrice);
 
   useEffect(() => {
     const getLastCoinPrice = async () => {
@@ -299,7 +304,7 @@ const GoldPriceCalculator = () => {
             weights: [...response.data.coinPrice.weights],
           };
         });
-        console.log("response.data.coinPrice: ", response.data.coinPrice);
+        console.log("response.data.coinPrice: ", response.data);
       } catch (error) {
         console.error("Failed to retrieve last coin price:", error);
       }
@@ -322,7 +327,7 @@ const GoldPriceCalculator = () => {
             coinType: response.data.gramPrice.type,
           };
         });
-        console.log("response.data.gramPrice: ", response.data.gramPrice);
+        console.log("response.data.gramPrice: ", response.data);
       } catch (error) {
         console.error("Failed to retrieve last gram price:", error);
       }
@@ -339,17 +344,17 @@ const GoldPriceCalculator = () => {
         gstPercentage: formData.gstPercentage,
       };
     });
-    console.log("formDataOuter", formDataOuter);
+    // console.log("formDataOuter", formDataOuter);
     const { coinType, gramPrice } = formDataOuter;
     const { makingCharges, gstPercentage, status } = formData;
-    console.log("coinType: ", formDataOuter);
+    // console.log("coinType: ", formDataOuter);
 
     const calculateNetAmount = (weight, price, charges, gst) => {
       const goldPrice = parseFloat(price) * weight;
       const making = goldPrice * (parseFloat(charges) / 100);
       const gstAmount = goldPrice * (parseFloat(gst) / 100);
       const netAmount = goldPrice + making + gstAmount;
-      console.log("netAmount: ", netAmount);
+      // console.log("netAmount: ", netAmount);
 
       return {
         goldPrice: goldPrice.toFixed(2),
@@ -360,11 +365,11 @@ const GoldPriceCalculator = () => {
     };
 
     const generateTableData = (coinPriceName) => {
-      console.log("afadsfsdfdsfdf: ", formDataOuter);
+      // console.log("afadsfsdfdsfdf: ", formDataOuter);
       const weights = formDataOuter.weights.map((item) => {
         return item.weight;
       });
-      console.log("weight: ", weights);
+      // console.log("weight: ", weights);
       const data = weights.map((weight, index) => ({
         id: index + 1,
         weight: weight.toString(),

@@ -277,7 +277,7 @@ const Form2 = ({ productState, setProductState }) => {
             </Select>
           </FormControl>
           {/* making charges */}
-          <FormControl width={"50%"} p={2}>
+          {/* <FormControl width={"50%"} p={2}>
             <FormLabel fontSize={"x-small"} mt={4}>
               Making Charges
             </FormLabel>
@@ -287,7 +287,7 @@ const Form2 = ({ productState, setProductState }) => {
               onChange={(e) => handleChange(e, "mcharges")}
               placeholder="Enter product makingcharges"
             />
-          </FormControl>
+          </FormControl> */}
           {/* Color is commented because this time not needed might be needed later on */}
           {/* <FormControl width={"50%"} p={2}>
             <FormLabel fontSize={"x-small"} mt={4}>
