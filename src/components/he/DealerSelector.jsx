@@ -16,19 +16,19 @@ function DealerSelectors({ selectedDealers, setSelectedDealers }) {
 
   const { API_LOCAL_URL, token } = AdminState();
 
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(`${API_LOCAL_URL}/api/user-details/`); // Replace "API_URL" with your actual API endpoint
-  //       setDealers(response.data);
-  //       console.log("response.data:", response.data);
-  //     } catch (error) {
-  //       console.error("Failed to fetch dealers:", error);
-  //     }
-  //   };
-  //   console.log("fetchedddddd");
-  //   useEffect(() => {
-  //     fetchData();
-  //   }, []);
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await axios.get(`${API_LOCAL_URL}/api/user-details/`); // Replace "API_URL" with your actual API endpoint
+  //     setDealers(response.data);
+  //     console.log("response.data:", response.data);
+  //   } catch (error) {
+  //     console.error("Failed to fetch dealers:", error);
+  //   }
+  // };
+  // console.log("fetchedddddd");
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   const fetchData = async () => {
     try {
@@ -85,20 +85,21 @@ function DealerSelectors({ selectedDealers, setSelectedDealers }) {
       </Heading>
       {dealers.length > 0 && (
         <SimpleGrid columns={2} spacing={4}>
-          {dealers?.map(({ user, brandName }, index) => (
-            <Flex key={user._id} alignItems="center">
-              {console.log("user:", user._id, brandName)}
-              <Checkbox
-                isChecked={selectedDealers.includes(user._id)}
-                onChange={() => handleCheckboxChange(user._id)}
-                mr={2}
-              />
-              <HStack alignItems="flex-start">
-                <Box>{user.name}</Box>
-                <Box fontWeight="bold">{brandName}</Box>
-              </HStack>
-            </Flex>
-          ))}
+          {dealers
+            .filter(({ user }) => user) // Filter out null or undefined users
+            .map(({ user, brandName }, index) => (
+              <Flex key={index} alignItems="center">
+                <Checkbox
+                  isChecked={selectedDealers.includes(user._id)}
+                  onChange={() => handleCheckboxChange(user._id)}
+                  mr={2}
+                />
+                <HStack alignItems="flex-start">
+                  <Box>{user.name}</Box>
+                  <Box fontWeight="bold">{brandName}</Box>
+                </HStack>
+              </Flex>
+            ))}
         </SimpleGrid>
       )}
     </Box>
