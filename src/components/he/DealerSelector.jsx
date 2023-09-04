@@ -32,7 +32,6 @@ function DealerSelectors({ selectedDealers, setSelectedDealers }) {
 
   const fetchData = async () => {
     try {
-      console.log("fetchedddddd");
       const response = await axios.get(`${API_LOCAL_URL}/api/user-details/`);
       return response.data;
     } catch (error) {
