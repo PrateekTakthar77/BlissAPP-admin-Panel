@@ -8,6 +8,8 @@ import {
   Td,
   Spinner,
   Box,
+  Center,
+  Heading,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { AdminState } from "../context/context";
@@ -55,6 +57,11 @@ const UserTable = () => {
 
   return (
     <>
+      <Center>
+        <Heading as="h1" size="l" mb="4" mt="2">
+          ALL REGISTERED DEALERS
+        </Heading>
+      </Center>
       {error ? (
         <Box>{error}</Box>
       ) : (

@@ -56,7 +56,7 @@ const LinkItems = [
     link: "/makingcharges",
   },
   {
-    name: "Bookings",
+    name: "Book an appointment",
     icon: FaListOl,
     link: "/bookings",
   },
