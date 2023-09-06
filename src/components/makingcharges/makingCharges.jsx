@@ -9,6 +9,8 @@ import {
   Tr,
   Spinner,
   Button,
+  Heading,
+  Center,
 } from "@chakra-ui/react";
 import axios from "axios";
 import EditMakingChargesForm from "./EditMakingChargesForm";
@@ -50,6 +52,11 @@ const MakingChargesTable = () => {
 
   return (
     <Box>
+      <Center>
+        <Heading as="h1" size="l" mb="4" mr="17" mt="2">
+          MAKING CHARGES ON PRODUCTS
+        </Heading>
+      </Center>
       {loading ? (
         <Spinner size="lg" />
       ) : error ? (

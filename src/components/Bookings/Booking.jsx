@@ -9,8 +9,11 @@ import {
   Tr,
   Spinner,
   Button,
+  Heading,
+  Center,
 } from "@chakra-ui/react";
 import axios from "axios";
+import { format } from "date-fns"; // Import the format function
 // import EditMakingChargesForm from "./EditMakingChargesForm";
 const bookingsTable = () => {
   const [makingCharges, setMakingCharges] = useState([]);
@@ -48,6 +51,12 @@ const bookingsTable = () => {
 
   return (
     <Box>
+      {/* Add a heading here */}
+      <Center>
+        <Heading as="h1" size="l" mb="4" mt="2">
+          APPOINTMENT BOOKING LIST
+        </Heading>
+      </Center>
       {loading ? (
         <Spinner size="lg" />
       ) : error ? (
@@ -62,21 +71,12 @@ const bookingsTable = () => {
                 <Th>Date</Th>
               </Tr>
             </Thead>
-            {/* <Tbody>
-              {makingCharges.map((charge) => (
-                <Tr key={charge._id}>
-                  <Td>{charge.category}</Td>
-                  <Td>{charge.subcategory}</Td>
-                  <Td>{charge.makingcharges} %</Td>
-                </Tr>
-              ))}
-            </Tbody> */}
             <Tbody>
-              {makingCharges.map((charge) => (
-                <Tr key={charge._id}>
-                  <Td>{charge.name}</Td>
-                  <Td>{charge.phone}</Td>
-                  <Td>{charge.date}</Td>
+              {makingCharges.map((data) => (
+                <Tr key={data._id}>
+                  <Td>{data.name}</Td>
+                  <Td>{data.phone}</Td>
+                  <Td>{format(new Date(data.date), "dd-MM-yyyy")}</Td>
                 </Tr>
               ))}
             </Tbody>
