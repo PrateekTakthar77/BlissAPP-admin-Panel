@@ -16,6 +16,7 @@ import UpdatePerson from "./components/he/UpdatePerson";
 import SinglePerson from "./components/he/SinglePerson";
 import GoldPriceTable from "./components/Charts/GoldTable";
 import MakingChargesTable from "./components/makingcharges/makingCharges";
+import BookingsTable from "./components/Bookings/Booking";
 
 function App() {
   const [initialLoad, setInitialLoad] = useState(true);
@@ -65,6 +66,7 @@ function App() {
                       path="/makingcharges"
                       element={<MakingChargesTable />}
                     />
+                    <Route path="/bookings" element={<BookingsTable />} />
                   </>
                 ) : (
                   <>

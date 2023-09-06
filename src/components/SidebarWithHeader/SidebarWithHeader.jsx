@@ -40,7 +40,7 @@ import {
   MdPriceChange,
   MdMonitorWeight,
 } from "react-icons/md";
-import { FaWeightHanging } from "react-icons/fa";
+import { FaWeightHanging, FaListOl } from "react-icons/fa";
 import { AdminState } from "../context/context";
 
 const LinkItems = [
@@ -54,6 +54,11 @@ const LinkItems = [
     name: "Manage Making Charges",
     icon: FaWeightHanging,
     link: "/makingcharges",
+  },
+  {
+    name: "Bookings",
+    icon: FaListOl,
+    link: "/bookings",
   },
 ];
 
