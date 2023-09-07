@@ -13,12 +13,14 @@ import {
   Center,
 } from "@chakra-ui/react";
 import axios from "axios";
+import { AdminState } from "../context/context";
 import { format } from "date-fns"; // Import the format function
 // import EditMakingChargesForm from "./EditMakingChargesForm";
 const bookingsTable = () => {
   const [makingCharges, setMakingCharges] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { API_BASE_URL } = AdminState();
 
   useEffect(() => {
     fetchMakingCharges();
@@ -40,7 +42,7 @@ const bookingsTable = () => {
 
   const fetchMakingCharges = async () => {
     try {
-      const response = await axios.get("http://localhost:5009/api/bookings/");
+      const response = await axios.get(`${API_BASE_URL}/api/bookings/`);
       setMakingCharges(response.data);
       setLoading(false);
     } catch (error) {

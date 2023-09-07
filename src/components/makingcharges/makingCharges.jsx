@@ -14,10 +14,12 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import EditMakingChargesForm from "./EditMakingChargesForm";
+import { AdminState } from "../context/context";
 const MakingChargesTable = () => {
   const [makingCharges, setMakingCharges] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { API_BASE_URL } = AdminState();
 
   useEffect(() => {
     fetchMakingCharges();
@@ -39,9 +41,7 @@ const MakingChargesTable = () => {
 
   const fetchMakingCharges = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5009/api/makingcharges"
-      );
+      const response = await axios.get(`${API_BASE_URL}/api/makingcharges`);
       setMakingCharges(response.data);
       setLoading(false);
     } catch (error) {
