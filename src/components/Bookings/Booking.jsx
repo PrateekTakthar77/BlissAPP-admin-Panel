@@ -51,6 +51,21 @@ const bookingsTable = () => {
     }
   };
 
+  const handleDeleteBooking = async (bookingId) => {
+    try {
+      // Send a DELETE request to your API endpoint
+      await axios.delete(`${API_BASE_URL}/api/bookings/delete`, {
+        data: { bookingId }, // Send the bookingId in the request body
+      });
+
+      // Remove the deleted booking from the state
+      setMakingCharges((prevBookings) =>
+        prevBookings.filter((booking) => booking._id !== bookingId)
+      );
+    } catch (error) {
+      setError("Error while deleting the booking");
+    }
+  };
   return (
     <Box>
       {/* Add a heading here */}
@@ -71,6 +86,7 @@ const bookingsTable = () => {
                 <Th>Name</Th>
                 <Th>Phone Number</Th>
                 <Th>Date</Th>
+                <Th>Delete</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -79,6 +95,14 @@ const bookingsTable = () => {
                   <Td>{data.name}</Td>
                   <Td>{data.phone}</Td>
                   <Td>{format(new Date(data.date), "dd-MM-yyyy")}</Td>
+                  <Td>
+                    <Button
+                      colorScheme="red"
+                      onClick={() => handleDeleteBooking(data._id)}
+                    >
+                      Delete
+                    </Button>
+                  </Td>
                 </Tr>
               ))}
             </Tbody>
