@@ -11,12 +11,14 @@ import {
   Button,
   Heading,
   Center,
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { AdminState } from "../context/context";
 import { format } from "date-fns"; // Import the format function
 // import EditMakingChargesForm from "./EditMakingChargesForm";
 const bookingsTable = () => {
+  const toast = useToast();
   const [makingCharges, setMakingCharges] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -57,6 +59,14 @@ const bookingsTable = () => {
       await axios.delete(`${API_BASE_URL}/api/bookings/delete`, {
         data: { bookingId }, // Send the bookingId in the request body
       });
+      // Show a success toast
+      toast({
+        title: "Booking Deleted",
+        status: "error",
+        duration: 3000, // Duration in milliseconds
+        isClosable: true, // Allow the user to close the toast
+        position: "top",
+      });
 
       // Remove the deleted booking from the state
       setMakingCharges((prevBookings) =>
@@ -68,7 +78,6 @@ const bookingsTable = () => {
   };
   return (
     <Box>
-      {/* Add a heading here */}
       <Center>
         <Heading as="h1" size="l" mb="4" mt="2">
           APPOINTMENT BOOKING LIST
@@ -77,7 +86,11 @@ const bookingsTable = () => {
       {loading ? (
         <Spinner size="lg" />
       ) : error ? (
-        <Box>{error}</Box>
+        <Alert status="error">
+          <AlertIcon />
+          {error}
+          <CloseButton position="absolute" right="8px" top="8px" />
+        </Alert>
       ) : (
         <Box maxW={"100%"} minW={"100%"}>
           <Table variant="striped">
@@ -86,7 +99,7 @@ const bookingsTable = () => {
                 <Th>Name</Th>
                 <Th>Phone Number</Th>
                 <Th>Date</Th>
-                <Th>Delete</Th>
+                <Th>Action</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -98,6 +111,7 @@ const bookingsTable = () => {
                   <Td>
                     <Button
                       colorScheme="red"
+                      size="sm"
                       onClick={() => handleDeleteBooking(data._id)}
                     >
                       Delete
