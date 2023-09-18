@@ -34,6 +34,7 @@ import {
   FiUserPlus,
   FiList,
 } from "react-icons/fi";
+import { TbTruckDelivery } from "react-icons/tb";
 import { Link as RouteLink, useNavigate } from "react-router-dom";
 import {
   MdShoppingCartCheckout,
@@ -47,7 +48,7 @@ const LinkItems = [
   { name: "Home", icon: FiHome, link: "/" },
   { name: "Manage Products", icon: MdShoppingCartCheckout, link: "/products" },
   { name: "Manage Dealers", icon: FiTrendingUp, link: "/dealers" },
-  { name: "Manage Orders", icon: FiTrendingUp, link: "/orders" },
+  { name: "Manage Orders", icon: TbTruckDelivery, link: "/orders" },
   { name: "Manage Sales Person", icon: FiUserPlus, link: "/salesperson" },
   { name: "Manage Coins", icon: MdPriceChange, link: "/pricetable" },
   {
@@ -59,6 +60,16 @@ const LinkItems = [
     name: "Book an appointment",
     icon: FaListOl,
     link: "/bookings",
+  },
+  {
+    name: "Custom orders",
+    icon: TbTruckDelivery,
+    link: "/customorders",
+  },
+  {
+    name: "Single Custom orders",
+    icon: TbTruckDelivery,
+    link: "/Singlecustomorders",
   },
 ];
 
@@ -107,16 +118,40 @@ const SidebarContent = ({ onClose, ...rest }) => {
       h="full"
       {...rest}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+      {/* <Flex h="5" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
           <Image
             src="https://imgpile.com/images/9BZJiw.png"
             alt="Logo"
-            height="64px"
-          />
+            height="30px"
+          />{" "}
+          Jewellery Bliss
         </Text>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
+      </Flex> */}
+      <Flex
+        h="5"
+        alignItems="center"
+        mx="8"
+        mb="15px"
+        mt="30px"
+        justifyContent="space-between"
+      >
+        <HStack spacing="2">
+          {" "}
+          {/* Use HStack to display elements horizontally */}
+          <Image
+            src="https://imgpile.com/images/9BZJiw.png"
+            alt="Logo"
+            height="50px"
+          />
+          <Text fontSize="13px" fontWeight="bold" mr="2px">
+            Jewellery Bliss
+          </Text>
+        </HStack>
+        <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
+
       {LinkItems.map((link) => (
         <NavItem
           fontSize={"15px"}
@@ -218,9 +253,7 @@ const MobileNav = ({ onOpen, setLoggedIn, ...rest }) => {
               <HStack color={"white"}>
                 <Avatar
                   size={"sm"}
-                  src={
-                    "https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
-                  }
+                  src={"https://imgpile.com/images/9BZJiw.png"}
                 />
                 <VStack
                   display={{ base: "none", md: "flex" }}
