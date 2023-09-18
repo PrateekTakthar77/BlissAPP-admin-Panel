@@ -9,16 +9,18 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { BsPerson } from "react-icons/bs";
-import { FiServer } from "react-icons/fi";
+import { FiServer, FiUserPlus } from "react-icons/fi";
 import { GoLocation } from "react-icons/go";
 import { GrMoney } from "react-icons/gr";
-import { FaCartArrowDown } from "react-icons/fa";
+import { TbTruckDelivery } from "react-icons/tb";
+import { FaCartArrowDown, FaListOl, FaDollarSign } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 function StatsCard(props) {
   const { title, stat, icon } = props;
   const navigateMe = useNavigate();
   return (
     <Stat
+      cursor="pointer" // Set cursor to pointer on hover
       onClick={() => navigateMe(props.link)}
       px={{ base: 2, md: 4 }}
       py={"5"}
@@ -53,6 +55,8 @@ export default function BasicStatistics({
   totalOrders,
   totalUsers,
   totalRevenue,
+  totalBookings,
+  setCustomOrders,
 }) {
   return (
     <Box maxW="7xl" mt={-8}>
@@ -65,27 +69,38 @@ export default function BasicStatistics({
       ></chakra.h1>
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
         <StatsCard
-          title={"Users"}
+          cursor="pointer" // Set cursor to pointer on hover
+          title={"Total Registered Dealers"}
           link={"/dealers"}
           stat={totalUsers}
-          icon={<BsPerson size={"3em"} />}
+          icon={<FiUserPlus size={"3em"} />}
         />
         <StatsCard
-          title={"Products"}
+          title={"Total Products"}
           link={"/products"}
           stat={totalProducts}
           icon={<FiServer size={"3em"} />}
         />
         <StatsCard
-          title={"Orders"}
+          title={"Total Orders"}
           link={"/orders"}
           stat={totalOrders}
           icon={<FaCartArrowDown size={"3em"} />}
         />
         <StatsCard
-          title={"Revenue"}
+          title={"Total Revenue"}
           stat={"₹" + totalRevenue}
-          icon={<GrMoney size={"3em"} />}
+          icon={<FaDollarSign size={"3em"} />}
+        />
+        <StatsCard
+          title={"Appointment Bookings"}
+          stat={totalBookings} // Display the totalBookings prop
+          icon={<FaListOl size={"3em"} />}
+        />
+        <StatsCard
+          title={"Total Custom Orders"}
+          stat={setCustomOrders} // Display the totalBookings prop
+          icon={<TbTruckDelivery size={"3em"} />}
         />
       </SimpleGrid>
     </Box>

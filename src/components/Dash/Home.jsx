@@ -21,9 +21,17 @@ const HomeDashboard = () => {
   const [totalOrders, setTotalOrders] = useState(0);
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalRevenue, setTotalRevenue] = useState(0);
+  const [totalBookings, setTotalBookings] = useState(0);
+  const [customOrders, setCustomOrders] = useState(0);
   const [error, setError] = useState(null);
-  const { user, token, API_BASE_URL, loadingState, setLoadingState,API_LOCAL_URL } =
-    AdminState();
+  const {
+    user,
+    token,
+    API_BASE_URL,
+    loadingState,
+    setLoadingState,
+    API_LOCAL_URL,
+  } = AdminState();
   console.log("API_BASE_URLHome:", API_BASE_URL);
 
   useEffect(() => {
@@ -122,6 +130,51 @@ const HomeDashboard = () => {
   }, [token]);
 
   console.log("loadingState2", loadingState);
+
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        const response = await axios.get(`${API_LOCAL_URL}/api/bookings`);
+        console.log("boooookings-->", response.data);
+        setTotalBookings(response.data.length); // Update totalBookings state
+        setError(null);
+      } catch (error) {
+        console.error("error-> ", error);
+        setError(
+          (prev) =>
+            error.response.data.message ||
+            error.response.data.error ||
+            error.message ||
+            "Error while fetching orders"
+        );
+      }
+    };
+
+    fetchBookings();
+  }, [loadingState]);
+
+  useEffect(() => {
+    const fetchCustomorders = async () => {
+      try {
+        const response = await axios.get(`${API_LOCAL_URL}/api/customorders`);
+        console.log("boooookings-->", response.data);
+        setCustomOrders(response.data.length); // Update totalBookings state
+        setError(null);
+      } catch (error) {
+        console.error("error-> ", error);
+        setError(
+          (prev) =>
+            error.response.data.message ||
+            error.response.data.error ||
+            error.message ||
+            "Error while fetching orders"
+        );
+      }
+    };
+
+    fetchCustomorders();
+  }, [loadingState]);
+
   return (
     <>
       {!loadingState ? (
@@ -138,6 +191,8 @@ const HomeDashboard = () => {
               totalUsers={totalUsers}
               totalProducts={totalProducts}
               totalRevenue={totalRevenue}
+              totalBookings={totalBookings}
+              setCustomOrders={customOrders}
             />
           ) : (
             <>
