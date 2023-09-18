@@ -17,6 +17,8 @@ import SinglePerson from "./components/he/SinglePerson";
 import GoldPriceTable from "./components/Charts/GoldTable";
 import MakingChargesTable from "./components/makingcharges/makingCharges";
 import BookingsTable from "./components/Bookings/Booking";
+import CustomOrders from "./components/CustomOrders/customorders";
+import CustomOrdersDetails from "./components/CustomOrders/singleCustomOrder";
 
 function App() {
   const [initialLoad, setInitialLoad] = useState(true);
@@ -67,6 +69,11 @@ function App() {
                       element={<MakingChargesTable />}
                     />
                     <Route path="/bookings" element={<BookingsTable />} />
+                    <Route path="/customorders" element={<CustomOrders />} />
+                    <Route
+                      path="/Singlecustomorders/:orderId"
+                      element={<CustomOrdersDetails />}
+                    />
                   </>
                 ) : (
                   <>
