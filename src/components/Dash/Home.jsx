@@ -135,7 +135,7 @@ const HomeDashboard = () => {
     const fetchBookings = async () => {
       try {
         const response = await axios.get(`${API_LOCAL_URL}/api/bookings`);
-        console.log("boooookings-->", response.data);
+        // console.log("boooookings-->", response.data);
         setTotalBookings(response.data.length); // Update totalBookings state
         setError(null);
       } catch (error) {
@@ -157,7 +157,7 @@ const HomeDashboard = () => {
     const fetchCustomorders = async () => {
       try {
         const response = await axios.get(`${API_LOCAL_URL}/api/customorders`);
-        console.log("boooookings-->", response.data);
+        // console.log("custom orders-->", response.data);
         setCustomOrders(response.data.length); // Update totalBookings state
         setError(null);
       } catch (error) {
