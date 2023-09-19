@@ -67,9 +67,9 @@ const LinkItems = [
     link: "/customorders",
   },
   {
-    name: "Single Custom orders",
+    name: "Premium Charges",
     icon: TbTruckDelivery,
-    link: "/Singlecustomorders",
+    link: "/PremiumCharges",
   },
 ];
 
