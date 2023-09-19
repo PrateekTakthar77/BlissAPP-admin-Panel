@@ -14,12 +14,13 @@ import {
   Input,
 } from "@chakra-ui/react";
 import axios from "axios";
-
+import { AdminState } from "../context/context";
 const EditMakingChargesForm = ({
   makingChargesData,
   onClose,
   refreshTable,
 }) => {
+  const { API_BASE_URL } = AdminState();
   const [editedMakingCharges, setEditedMakingCharges] = useState(
     makingChargesData.makingcharges
   );
@@ -28,7 +29,7 @@ const EditMakingChargesForm = ({
     try {
       // Make an API request to update making charges here
       await axios.put(
-        `http://localhost:5009/api/makingcharges/update/${makingChargesData._id}`,
+        `${API_BASE_URL}/api/makingcharges/update/${makingChargesData._id}`,
         {
           makingcharges: editedMakingCharges,
         }
