@@ -15,6 +15,8 @@ import {
 import axios from "axios";
 import { AdminState } from "../context/context";
 import EditPremiumForm from "./editpremium";
+import { EditIcon } from "@chakra-ui/icons"; // Import EditIcon from Chakra UI
+
 const MakingChargesTable = () => {
   const [makingCharges, setMakingCharges] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -24,7 +26,7 @@ const MakingChargesTable = () => {
   useEffect(() => {
     fetchMakingCharges();
   }, []);
-  //
+
   const [editMakingChargesData, setEditMakingChargesData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -34,7 +36,6 @@ const MakingChargesTable = () => {
   };
 
   const refreshTable = () => {
-    // Add logic to refresh the making charges table (e.g., by re-fetching data)
     fetchMakingCharges();
     setIsEditing(false);
   };
@@ -45,7 +46,7 @@ const MakingChargesTable = () => {
       setMakingCharges(response.data);
       setLoading(false);
     } catch (error) {
-      setError("Error while fetching making charges");
+      setError("Error while fetching making charges. Please try again later.");
       setLoading(false);
     }
   };
@@ -53,45 +54,36 @@ const MakingChargesTable = () => {
   return (
     <Box>
       <Center>
-        <Heading as="h1" size="l" mb="4" mr="17" mt="2">
+        <Heading as="h1" size="l" mb="4" mt="2">
           PREMIUM CHARGES ON PRODUCTS
         </Heading>
       </Center>
       {loading ? (
-        <Spinner size="lg" />
+        <Center>
+          <Spinner size="lg" />
+        </Center>
       ) : error ? (
-        <Box>{error}</Box>
+        <Box color="red.500">{error}</Box>
       ) : (
         <Box maxW={"100%"} minW={"100%"}>
           <Table variant="striped">
             <Thead>
               <Tr>
-                <Th>Category</Th>
-                <Th>Subcategory</Th>
-                <Th>Making Charges</Th>
+                <Th>Premium Charges</Th>
+                <Th>Edit</Th>
               </Tr>
             </Thead>
-            {/* <Tbody>
-              {makingCharges.map((charge) => (
-                <Tr key={charge._id}>
-                  <Td>{charge.category}</Td>
-                  <Td>{charge.subcategory}</Td>
-                  <Td>{charge.makingcharges} %</Td>
-                </Tr>
-              ))}
-            </Tbody> */}
             <Tbody>
               {makingCharges.map((charge) => (
                 <Tr key={charge._id}>
                   <Td>{charge.premiumcharges}</Td>
-                  <Td>{charge.subcategory}</Td>
-                  <Td>{charge.makingcharges} %</Td>
                   <Td>
                     <Button
                       onClick={() => handleEditMakingCharges(charge)}
                       ml={2}
                       size="sm"
                       colorScheme="blue"
+                      leftIcon={<EditIcon />}
                     >
                       Edit
                     </Button>
@@ -99,15 +91,15 @@ const MakingChargesTable = () => {
                 </Tr>
               ))}
             </Tbody>
-            {isEditing && (
-              <EditPremiumForm
-                makingChargesData={editMakingChargesData}
-                onClose={() => setIsEditing(false)}
-                refreshTable={refreshTable}
-              />
-            )}
           </Table>
         </Box>
+      )}
+      {isEditing && (
+        <EditPremiumForm
+          makingChargesData={editMakingChargesData}
+          onClose={() => setIsEditing(false)}
+          refreshTable={refreshTable}
+        />
       )}
     </Box>
   );
