@@ -19,6 +19,8 @@ import MakingChargesTable from "./components/makingcharges/makingCharges";
 import BookingsTable from "./components/Bookings/Booking";
 import CustomOrders from "./components/CustomOrders/customorders";
 import CustomOrdersDetails from "./components/CustomOrders/singleCustomOrder";
+import PremiumCharges from "./components/Premium/premium";
+import editPremiumCharges from "./components/Premium/editpremium";
 
 function App() {
   const [initialLoad, setInitialLoad] = useState(true);
@@ -73,6 +75,14 @@ function App() {
                     <Route
                       path="/Singlecustomorders/:orderId"
                       element={<CustomOrdersDetails />}
+                    />
+                    <Route
+                      path="/PremiumCharges"
+                      element={<PremiumCharges />}
+                    />
+                    <Route
+                      path="/editPremiumCharges"
+                      element={<editPremiumCharges />}
                     />
                   </>
                 ) : (
