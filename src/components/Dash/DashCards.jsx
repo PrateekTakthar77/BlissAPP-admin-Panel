@@ -57,6 +57,7 @@ export default function BasicStatistics({
   totalRevenue,
   totalBookings,
   setCustomOrders,
+  // setPremium,
 }) {
   return (
     <Box maxW="7xl" mt={-8}>
@@ -89,19 +90,27 @@ export default function BasicStatistics({
         />
         <StatsCard
           title={"Total Revenue"}
+          link={"/orders"}
           stat={"₹" + totalRevenue}
           icon={<FaDollarSign size={"3em"} />}
         />
         <StatsCard
           title={"Appointment Bookings"}
+          link={"/bookings"}
           stat={totalBookings} // Display the totalBookings prop
           icon={<FaListOl size={"3em"} />}
         />
         <StatsCard
           title={"Total Custom Orders"}
+          link={"/customorders"}
           stat={setCustomOrders} // Display the totalBookings prop
           icon={<TbTruckDelivery size={"3em"} />}
         />
+        {/* <StatsCard
+          title={"Premium Charges"}
+          // stat={setPremium} // Display the totalBookings prop
+          icon={<TbTruckDelivery size={"3em"} />}
+        /> */}
       </SimpleGrid>
     </Box>
   );

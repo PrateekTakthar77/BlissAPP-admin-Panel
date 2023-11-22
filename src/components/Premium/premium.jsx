@@ -54,7 +54,7 @@ const MakingChargesTable = () => {
   return (
     <Box>
       <Center>
-        <Heading as="h1" size="l" mb="4" mt="2">
+        <Heading as="h1" size="l" mb="4" mt="2" mr="90">
           PREMIUM CHARGES ON PRODUCTS
         </Heading>
       </Center>

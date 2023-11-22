@@ -36,7 +36,7 @@ function SalespersonsTable({ searchTerm, setSearchTerm }) {
   useEffect(() => {
     // Fetch salespersons data from the API
     axios
-      .get(`${API_LOCAL_URL}/api/admin/all-salespersons`)
+      .get(`${API_BASE_URL}/api/admin/all-salespersons`)
       .then((response) => {
         setSalespersons(response.data.salespersons.reverse());
         setLoading(false);

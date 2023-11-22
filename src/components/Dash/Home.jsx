@@ -23,6 +23,7 @@ const HomeDashboard = () => {
   const [totalRevenue, setTotalRevenue] = useState(0);
   const [totalBookings, setTotalBookings] = useState(0);
   const [customOrders, setCustomOrders] = useState(0);
+  const [premium, setPremium] = useState(0);
   const [error, setError] = useState(null);
   const {
     user,
@@ -32,12 +33,11 @@ const HomeDashboard = () => {
     setLoadingState,
     API_LOCAL_URL,
   } = AdminState();
-  console.log("API_BASE_URLHome:", API_BASE_URL);
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`${API_LOCAL_URL}/api/admin/orders`, {
+        const response = await axios.get(`${API_BASE_URL}/api/admin/orders`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -134,7 +134,7 @@ const HomeDashboard = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await axios.get(`${API_LOCAL_URL}/api/bookings`);
+        const response = await axios.get(`${API_BASE_URL}/api/bookings`);
         // console.log("boooookings-->", response.data);
         setTotalBookings(response.data.length); // Update totalBookings state
         setError(null);
@@ -156,7 +156,7 @@ const HomeDashboard = () => {
   useEffect(() => {
     const fetchCustomorders = async () => {
       try {
-        const response = await axios.get(`${API_LOCAL_URL}/api/customorders`);
+        const response = await axios.get(`${API_BASE_URL}/api/customorders`);
         // console.log("custom orders-->", response.data);
         setCustomOrders(response.data.length); // Update totalBookings state
         setError(null);
@@ -175,6 +175,32 @@ const HomeDashboard = () => {
     fetchCustomorders();
   }, [loadingState]);
 
+  // // Premium Charges
+  // useEffect(() => {
+  //   const fetchPremium = async () => {
+  //     try {
+  //       const response = await axios.get(`${API_BASE_URL}/api/premium`);
+  //       setPremium(response.data[0]);
+  //       let hello = setPremium;
+  //       console.log(
+  //         `12311212145141511452154215421542154215421542154215421542`,
+  //         hello
+  //       );
+  //       setError(null);
+  //     } catch (error) {
+  //       console.error("error-> ", error);
+  //       setError(
+  //         (prev) =>
+  //           error.response.data.message ||
+  //           error.response.data.error ||
+  //           error.message ||
+  //           "Error while fetching orders"
+  //       );
+  //     }
+  //   };
+
+  //   fetchPremium();
+  // }, [loadingState]);
   return (
     <>
       {!loadingState ? (
@@ -193,6 +219,7 @@ const HomeDashboard = () => {
               totalRevenue={totalRevenue}
               totalBookings={totalBookings}
               setCustomOrders={customOrders}
+              // setPremium={setPremium}
             />
           ) : (
             <>

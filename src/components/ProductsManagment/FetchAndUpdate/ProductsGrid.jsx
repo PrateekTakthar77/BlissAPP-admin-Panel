@@ -49,23 +49,36 @@ const ProductGrid = ({ searchTerm, setSearchLoading, searchLoading }) => {
   }, [fetchAgain]);
 
   const fetchProducts = async () => {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/api/products`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+    // try {
+    //   const response = await axios.get(`${API_BASE_URL}/api/products`, {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   });
+    //   setProducts(response.data);
+    //   setFilteredProducts(setProducts.reverse());
+    // } catch (error) {
+    //   console.error("Error fetching products:", error);
+    //   setError(
+    //     (prev) =>
+    //       error.response.data.message ||
+    //       error.response.data.error ||
+    //       error.message ||
+    //       "Error while fetching products"
+    //   );
+    // }
+    const response = await axios.get(`${API_BASE_URL}/api/products`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response && response.data) {
       setProducts(response.data);
       setFilteredProducts(response.data.reverse());
-    } catch (error) {
-      console.error("Error fetching products:", error);
-      setError(
-        (prev) =>
-          error.response.data.message ||
-          error.response.data.error ||
-          error.message ||
-          "Error while fetching products"
-      );
+    } else {
+      // Handle the case where response or response.data is undefined
+      console.error("Error fetching products. Response:", response);
+      setError("Error while fetching products");
     }
   };
 
@@ -139,7 +152,7 @@ const ProductGrid = ({ searchTerm, setSearchLoading, searchLoading }) => {
     }, 1000);
   }, [searchTerm]);
 
-  const ThArr = ["Image", "Name", "Category", "Actions"];
+  const ThArr = ["Image", "Name", "Category", "SubCategory", "Actions"];
   return (
     <>
       {error ? (
@@ -157,9 +170,10 @@ const ProductGrid = ({ searchTerm, setSearchLoading, searchLoading }) => {
                   <Table variant="striped">
                     <Thead>
                       <Tr>
-                        <Th>Image</Th>
+                        {/* <Th>Image</Th> */}
                         <Th>Name</Th>
                         <Th>Category</Th>
+                        <Th>Subcategory</Th>
                         {/* <Th>Description</Th> */}
                         {/* <Th isNumeric>MRP</Th> */}
                         {/* <Th isNumeric>Website Price</Th> */}

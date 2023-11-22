@@ -65,7 +65,7 @@ const UserTable = () => {
       {error ? (
         <Box>{error}</Box>
       ) : (
-        <Table variant="striped" colorScheme="gray">
+        <Table variant="striped" colorScheme="gray" size="md">
           <Thead>
             <Tr>
               <Th>Name</Th>
@@ -74,7 +74,7 @@ const UserTable = () => {
               <Th>Created At</Th>
             </Tr>
           </Thead>
-          <Tbody fontSize={"x-small"}>
+          <Tbody>
             {users.map((user) => (
               <Tr key={user._id}>
                 <Td>{user.name}</Td>

@@ -66,10 +66,10 @@ const EditPremiumForm = ({ makingChargesData, onClose, refreshTable }) => {
     <Modal isOpen={true} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Edit Making Charges</ModalHeader>
+        <ModalHeader>Edit Premium Charges</ModalHeader>
         <ModalBody>
           <FormControl>
-            <FormLabel>Making Charges (%)</FormLabel>
+            <FormLabel>Premium Charges (%)</FormLabel>
             <Input
               type="number"
               value={editedMakingCharges}
