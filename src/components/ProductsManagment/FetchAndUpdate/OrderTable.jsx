@@ -937,7 +937,7 @@ const OrdersTable = () => {
 
       {/* Orders Table */}
       <Table variant="striped">
-        <TableCaption>Orders</TableCaption>
+        {/* <TableCaption>Orders</TableCaption> */}
         <Thead>
           <Tr>
             <Th>Address</Th>
@@ -951,6 +951,7 @@ const OrdersTable = () => {
         </Thead>
         {renderTableBody()}
       </Table>
+      <center>Total Orders</center>
     </>
   );
 };
