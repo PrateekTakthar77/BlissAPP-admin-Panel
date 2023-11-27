@@ -580,15 +580,15 @@ const OrdersTable = () => {
   const [discountAmounts, setDiscountAmounts] = useState({});
   const [message, setMessage] = useState("");
 
-  const handleSendMessgae = async (orderId) => {
+  const handleSendMessgae = async (orderId, setMessage) => {
     try {
       const response = await axios.post(`${API_BASE_URL}/api/checkouts/send`, {
         message: setMessage,
         orderId,
       });
-      setMessage("");
+      // setMessage("");
       toast({
-        title: "Order Status Updated",
+        title: "Message Sent Succesfully",
         description: "Order Status Updated Successfully",
         status: "success",
         duration: 2000,
@@ -659,13 +659,7 @@ const OrdersTable = () => {
       const response = await axios.put(
         `${API_BASE_URL}/api/checkouts/state/${orderId}`,
         {
-          statusState: selectedValue,
-          orderId,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          status: selectedValue,
         }
       );
       setIsOrderStatusUpdate((prev) => !prev);
@@ -886,9 +880,16 @@ const OrdersTable = () => {
                     mb="2px"
                     width="100%"
                     placeholder="Enter message"
+                    // onChange={(e) => setMessage(e.target.value)}
+                    value={message} // Use the value prop to bind the input to the message state
                     onChange={(e) => setMessage(e.target.value)}
                   />
-                  <Button onClick={() => handleSendMessgae(order._id)}>
+                  {/* <Button
+                    onClick={() => handleSendMessgae(order._id, setMessage)}
+                  >
+                    Send Message
+                  </Button> */}
+                  <Button onClick={() => handleSendMessgae(order._id, message)}>
                     Send Message
                   </Button>
                 </Td>
