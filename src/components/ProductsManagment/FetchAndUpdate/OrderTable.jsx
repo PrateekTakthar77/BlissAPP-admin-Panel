@@ -578,7 +578,7 @@ const OrdersTable = () => {
   const [selectedFilter, setSelectedFilter] = useState("none");
   const [selectedSort, setSelectedSort] = useState("none");
   const [discountAmounts, setDiscountAmounts] = useState({});
-  const [message, setMessage] = useState("");
+  const [messagestate, setMessagestate] = useState("");
 
   const handleSendMessgae = async (orderId, setMessage) => {
     try {
@@ -586,15 +586,16 @@ const OrdersTable = () => {
         message: setMessage,
         orderId,
       });
-      // setMessage("");
       toast({
         title: "Message Sent Succesfully",
         description: "Order Status Updated Successfully",
         status: "success",
-        duration: 2000,
+        duration: 4000,
         isClosable: true,
-        position: "top-left",
+        position: "top",
+        isClosable: true,
       });
+      setMessagestate("");
     } catch (error) {
       toast({
         title: "Order Status Update Failed",
@@ -602,7 +603,8 @@ const OrdersTable = () => {
         status: "error",
         duration: 3000,
         isClosable: true,
-        position: "top-right",
+        position: "top",
+        isClosable: true,
       });
     }
   };
@@ -621,10 +623,11 @@ const OrdersTable = () => {
         title: "Discount Applied",
         description: "Discount applied successfully.",
         status: "success",
-        duration: 2000,
+        duration: 4000,
         isClosable: true,
         position: "top-left",
       });
+      setDiscountAmounts({});
     } catch (error) {
       console.error(error);
       toast({
@@ -881,15 +884,17 @@ const OrdersTable = () => {
                     width="100%"
                     placeholder="Enter message"
                     // onChange={(e) => setMessage(e.target.value)}
-                    value={message} // Use the value prop to bind the input to the message state
-                    onChange={(e) => setMessage(e.target.value)}
+                    value={messagestate} // Use the value prop to bind the input to the message state
+                    onChange={(e) => setMessagestate(e.target.value)}
                   />
                   {/* <Button
                     onClick={() => handleSendMessgae(order._id, setMessage)}
                   >
                     Send Message
                   </Button> */}
-                  <Button onClick={() => handleSendMessgae(order._id, message)}>
+                  <Button
+                    onClick={() => handleSendMessgae(order._id, messagestate)}
+                  >
                     Send Message
                   </Button>
                 </Td>
